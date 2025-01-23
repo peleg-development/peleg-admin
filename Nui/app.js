@@ -2,7 +2,7 @@
 new Vue({
     el: '#app',
     data: {
-        showMenu: false,
+        showMenu: true,
         selectedSection: 'dashboard',
         totalPlayers: 100,
         activeCheaters: 3,
@@ -15,21 +15,21 @@ new Vue({
         showScreenshotModal: false,
         modalScreenshot: '',
         players: [
-            // { id: 1, name: 'John Doe', steamId: 'STEAM_0:1:12345678', ping: 50 },
-            // { id: 2, name: 'Jane Smith', steamId: 'STEAM_0:1:87654321', ping: 75 },
-            // { id: 3, name: 'Chris Johnson', steamId: 'STEAM_0:1:23456789', ping: 30 },
-            // { id: 4, name: 'Sarah Lee', steamId: 'STEAM_0:1:98765432', ping: 120 },
-            // { id: 5, name: 'Mike Brown', steamId: 'STEAM_0:1:34567890', ping: 90 },
-            // { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            // { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            // { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            // { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            // { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 1, name: 'John Doe', steamId: 'STEAM_0:1:12345678', ping: 50 },
+            { id: 2, name: 'Jane Smith', steamId: 'STEAM_0:1:87654321', ping: 75 },
+            { id: 3, name: 'Chris Johnson', steamId: 'STEAM_0:1:23456789', ping: 30 },
+            { id: 4, name: 'Sarah Lee', steamId: 'STEAM_0:1:98765432', ping: 120 },
+            { id: 5, name: 'Mike Brown', steamId: 'STEAM_0:1:34567890', ping: 90 },
+            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
         ],
         bans: [
-            // { id: 1, name: "Jane Smith", reason: "Abusive language", steam: "STEAM_0:1:87654321", discord: "Jane#1234", hwid1: "HWID123456", ip: "192.168.1.100", expire: "Permanent" },
-            // { id: 2, name: "Chris Johnson", reason: "Cheating", steam: "STEAM_0:1:23456789", discord: "Chris#5678", hwid1: "HWID987654", ip: "192.168.1.101", expire: "2025-01-07" },
-            // { id: 3, name: "Mike Brown", reason: "Using exploits", steam: "STEAM_0:1:34567890", discord: "Mike#4321", hwid1: "HWID765432", ip: "192.168.1.102", expire: "2025-01-10" },
+            { id: 1, name: "Jane Smith", reason: "Abusive language", steam: "STEAM_0:1:87654321", discord: "Jane#1234", hwid1: "HWID123456", ip: "192.168.1.100", expire: "Permanent" },
+            { id: 2, name: "Chris Johnson", reason: "Cheating", steam: "STEAM_0:1:23456789", discord: "Chris#5678", hwid1: "HWID987654", ip: "192.168.1.101", expire: "2025-01-07" },
+            { id: 3, name: "Mike Brown", reason: "Using exploits", steam: "STEAM_0:1:34567890", discord: "Mike#4321", hwid1: "HWID765432", ip: "192.168.1.102", expire: "2025-01-10" },
         ],
         selectedPlayer: null,
         playerOptions: [
@@ -63,7 +63,9 @@ new Vue({
         ],
         settings: {
             notifications: true,
-            darkMode: false
+            theme: 'dark',
+            textScale: 100,
+            iconScale: 100
         },
         vehicleName: '',
         showObjectSpawner: false,
@@ -71,9 +73,26 @@ new Vue({
         objectName: '',
         pedModel: '',
         notifications: [],
-        notificationId: 0
+        notificationId: 0,
+        latestBans: [
+            { id: 1, name: 'Jane Smith', reason: 'Abusive language', timestamp: '2025-01-01' },
+            { id: 2, name: 'Chris Johnson', reason: 'Cheating', timestamp: '2025-01-02' },
+            { id: 3, name: 'Mike Brown', reason: 'Using exploits', timestamp: '2025-01-03' },
+          ],
     },
     methods: {
+        decreaseTextScale() {
+            this.settings.textScale = Math.max(this.settings.textScale - 10, 50);
+          },
+          increaseTextScale() {
+            this.settings.textScale = Math.min(this.settings.textScale + 10, 150);
+          },
+          decreaseIconScale() {
+            this.settings.iconScale = Math.max(this.settings.iconScale - 10, 50);
+          },
+          increaseIconScale() {
+            this.settings.iconScale = Math.min(this.settings.iconScale + 10, 150);
+          },
         fetchDashboardStats() {
             fetch(`https://${GetParentResourceName()}/getDashboardStats`, {
               method: 'POST',

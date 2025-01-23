@@ -8,7 +8,16 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src='https://unpkg.com/tesseract.js@5.0.2/dist/tesseract.min.js'></script>
     <script src="https://unpkg.com/@citizenfx/three@0.100.0/build/three.min.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/logs.css">
+    <link rel="stylesheet" href="css/notify.css">
+    <link rel="stylesheet" href="css/player-options.css">
+    <link rel="stylesheet" href="css/player-list.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/server-options.css">
+    <link rel="stylesheet" href="css/bans.css">
 </head>
 <body>
     <script>
@@ -34,7 +43,10 @@
   
     </script>
     <div id="app">
-        <div class="panel" v-if="showMenu">
+        <div class="panel" v-if="showMenu" :style="{
+            '--text-scale': settings.textScale,
+            '--icon-scale': settings.iconScale,
+          }">
             <div class="header">
                 <h1><i class="fas fa-shield-alt"></i> SecureServe</h1>
             </div>
@@ -53,39 +65,107 @@
                 <div class="content">
                     <transition name="fade" mode="out-in">
                         <div v-if="selectedSection === 'dashboard'" class="section" key="dashboard">
-                            <h2>Dashboard</h2>
-                            <div class="stats-container">
-                                <div class="stat-card">
-                                    <h3>Total Players</h3>
-                                    <p>{{ totalPlayers }}</p>
+                            <div class="stats-grid">
+                                <div class="stat-card total-players animated-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3>Total Players</h3>
+                                        <p class="stat-number">{{ totalPlayers }}</p>
+                                        <div class="stat-trend">
+                                            <i class="fas fa-arrow-up text-success"></i>
+                                            <span>+5% from last week</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="stat-card">
-                                    <h3>Active Bans</h3>
-                                    <p>{{ activeCheaters }}</p>
+                        
+                                <div class="stat-card active-bans animated-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-ban"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3>Active Bans</h3>
+                                        <p class="stat-number">{{ activeCheaters }}</p>
+                                        <div class="stat-trend">
+                                            <i class="fas fa-arrow-down text-danger"></i>
+                                            <span>-2 from last month</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="stat-card">
-                                    <h3>Server Uptime</h3>
-                                    <p>{{ serverUptime }}</p>
+                        
+                                <div class="stat-card server-uptime animated-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3>Server Uptime</h3>
+                                        <p class="stat-number">{{ serverUptime }}</p>
+                                        <div class="stat-health">
+                                            <span class="health-indicator green"></span>
+                                            <span>Stable</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="stat-card">
-                                    <h3>Peak Players</h3>
-                                    <p>{{ peakPlayers }}</p>
-                                </div>
-                            </div>
-                            <div class="dashboard-section">
-                                <div class="updates-container">
-                                    <h2>Last Updates</h2>
-                                    <div class="update-card" v-for="update in lastUpdates" :key="update.id">
-                                        <i class="fas fa-info-circle update-icon"></i>
-                                        <div class="update-content">
-                                            <strong>{{ update.title }}</strong> - {{ update.description }}
-                                            <em>{{ update.date }}</em>
+                        
+                                <div class="stat-card peak-players animated-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3>Peak Players</h3>
+                                        <p class="stat-number">{{ peakPlayers }}</p>
+                                        <div class="stat-trend">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Peak Time: 8 PM</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                        </div>
+                           
+                            <div class="updates-section">
+                                <div class="section-header">
+                                    <h2>Recent Updates</h2>
+                                    <a href="#" class="view-all">View All</a>
+                                </div>
+                                <div class="updates-list">
+                                    <div 
+                                        v-for="update in lastUpdates" 
+                                        :key="update.id" 
+                                        class="update-item"
+                                    >
+                                        <div class="update-icon">
+                                            <i class="fas fa-info-circle"></i>
+                                        </div>
+                                        <div class="update-details">
+                                            <h4>{{ update.title }}</h4>
+                                            <p>{{ update.description }}</p>
+                                            <div class="update-footer">
+                                                <span class="update-date">{{ update.date }}</span>
+                                                <a href="#" class="read-more">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="latest-bans-section">
+                                <div class="section-header">
+                                  <h2>Latest Bans</h2>
+                                  <a href="#" class="view-all">View All</a>
+                                </div>
+                                <div class="latest-bans-list">
+                                  <div v-for="ban in latestBans" :key="ban.id" class="ban-item">
+                                    <div class="ban-details">
+                                      <h4>{{ ban.name }}</h4>
+                                      <p>{{ ban.reason }}</p>
+                                    </div>
+                                    <div class="ban-timestamp">
+                                      <small>{{ ban.timestamp }}</small>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                         <div v-if="selectedSection === 'player-list'" class="section" key="player-list">
                         <div class="playersection">
                                 <transition name="modal-fade">
@@ -343,16 +423,52 @@
                         <div v-if="selectedSection === 'settings'" class="section" key="settings">
                             <h2>Settings</h2>
                             <div class="settings-container">
+
                                 <div class="setting">
-                                    <label for="notification">Enable Notifications</label>
-                                    <input type="checkbox" v-model="settings.notifications" id="notification">
+                                <label for="notification">Enable Notifications</label>
+                                <input type="checkbox" v-model="settings.notifications" id="notification">
+                              </div>
+
+                              <div class="setting">
+                                <label for="darkMode">Dark Mode</label>
+                                <div class="setting-options">
+                                  <input type="radio" v-model="settings.theme" value="light" id="light-mode">
+                                  <label for="light-mode">Light</label>
+                                  <input type="radio" v-model="settings.theme" value="dark" id="dark-mode">
+                                  <label for="dark-mode">Dark</label>
+                                  <input type="radio" v-model="settings.theme" value="auto" id="auto-mode">
+                                  <label for="auto-mode">Auto</label>
                                 </div>
-                                <div class="setting">
-                                    <label for="darkMode">Enable Dark Mode</label>
-                                    <input type="checkbox" v-model="settings.darkMode" id="darkMode">
+                              </div>
+
+                              <div class="setting">
+                                <label for="textScale">Text Scale</label>
+                                <div class="setting-options">
+                                  <button class="scale-btn" @click="decreaseTextScale()">
+                                    <i class="fas fa-minus"></i>
+                                  </button>
+                                  <span class="scale-value">{{ settings.textScale }}%</span>
+                                  <button class="scale-btn" @click="increaseTextScale()">
+                                    <i class="fas fa-plus"></i>
+                                  </button>
                                 </div>
+                              </div>
+
+                              <div class="setting">
+                                <label for="iconScale">Icon Scale</label>
+                                <div class="setting-options">
+                                  <button class="scale-btn" @click="decreaseIconScale()">
+                                    <i class="fas fa-minus"></i>
+                                  </button>
+                                  <span class="scale-value">{{ settings.iconScale }}%</span>
+                                  <button class="scale-btn" @click="increaseIconScale()">
+                                    <i class="fas fa-plus"></i>
+                                  </button>
+                                </div>
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                          
                         <div v-if="selectedSection === 'player-options'" class="section" key="player-options">
                             <h2>Player Options</h2>
                             <div class="player-options-content">

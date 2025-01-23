@@ -1,0 +1,130 @@
+.logs {
+    max-height: 30vh;
+    overflow-y: auto;
+}
+
+.log-entry {
+    padding: var(--padding);
+    background-color: var(--card-hover-bg);
+    border: 1px solid var(--card-bg);
+    margin-bottom: 1vh;
+    border-radius: var(--border-radius);
+    color: var(--text-muted);
+    animation: fadeIn 1s var(--transition);
+}
+
+.section-title {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+.logs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.log-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    background: linear-gradient(145deg, #1e1f26, #25272e);
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.log-item:hover {
+    transform: scale(1.02);
+    background: linear-gradient(145deg, #25272e, #1e1f26);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.log-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 120, 255, 0.1); 
+    color: #0078ff;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.log-item:hover .log-icon {
+    transform: scale(1.1);
+}
+
+.log-icon.error {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+}
+
+.log-icon.warning {
+    background-color: rgba(255, 159, 0, 0.1);
+    color: #ff9f00;
+}
+
+.log-icon.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.log-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.log-timestamp {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.log-timestamp i {
+    color: var(--primary-color);
+}
+
+.log-message {
+    font-size: 15px;
+    color: #ffffff;
+    line-height: 1.5;
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+.log-item:hover .log-message {
+    color: #d4d4d8;
+}
+
+.logs-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.logs-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+.logs-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}

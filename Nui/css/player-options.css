@@ -1,0 +1,183 @@
+
+.option-category h3 {
+    margin-top: 0;
+    font-size: 2vh;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: var(--padding);
+}
+
+.actions-container {
+    background-color: var(--secondary-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 70%;
+    height: auto;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.actions-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* background-color: var(--tertiary-bg); */
+    padding: 1.2rem;
+    border-radius: var(--border-radius);
+    border-color: var(--border-color);
+    /* box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05), 0 4px 6px rgba(0, 0, 0, 0.1); */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.action-item:hover {
+    /* box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05), 0 6px 12px rgba(0, 0, 0, 0.15);  */
+    transform: translateY(-2px); 
+}
+
+
+
+.styled-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.styled-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+.styled-button {
+    background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-color);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.styled-button:hover {
+    background: linear-gradient(145deg, var(--secondary-color), var(--primary-color));
+    transform: scale(1.05);
+}
+
+
+.option:hover {
+    background-color: var(--card-hover-bg);
+}
+
+.option {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1vh;
+    padding: 1vh;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.option-label {
+    font-size: 1.8vh; 
+    color: var(--text-muted);
+}
+.option-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3f3f3f;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-switch label:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.player-options-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 2vh;
+    padding: 1vh;
+    grid-template-areas: 
+        "misc actions"
+        "admin admin"; 
+}
+
+.option-category {
+    background: linear-gradient(145deg, var(--card-bg), var(--tertiary-bg));
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+
+.option-category:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+}
+
+
+.option-category.misc-options {
+    grid-area: misc;
+    height: auto; 
+}
+
+.option-category.actions {
+    grid-area: actions;
+}
+
+.option-category.admin-powers {
+    margin-top: -3vh;
+    grid-area: admin;
+}
