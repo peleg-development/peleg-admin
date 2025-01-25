@@ -1,3 +1,4 @@
+
 :root {
     /* Base colors - Balanced dark mode */
     --primary-bg: #1a1b1f;        
@@ -27,13 +28,54 @@
     --warning-color: #f59e0b;
     --danger-color: #ef4444;
     --info-color: #3b82f6;
+    --text-scale: 100%;
+    --icon-scale: 100%;
 }
+
+.light-mode {
+    /* Base colors */
+    --primary-bg: #202833;        
+    --secondary-bg: #2c3640;      
+    --tertiary-bg: #364047;       
+   
+    /* Accent colors */
+    --primary-color: #5e81ac;     
+    --secondary-color: #81a1c1;   
+   
+    /* Text colors */
+    --text-color: #e0e4ea;       
+    --text-muted: #8f9ba8;        
+   
+    /* Component colors */
+    --card-bg: #2c3640;          
+    --card-hover-bg: #364047;     
+    --border-color: #3b4650;      
+   
+    /* UI elements */
+    --border-radius: 10px;
+    --padding: 1vh;
+    --transition: all 0.3s ease;
+   
+    /* Status colors */
+    --success-color: #a3be8c;     
+    --warning-color: #d08770;     
+    --danger-color: #bf616a;      
+    --info-color: #88c0d0;        
+    
+    --text-scale: 100%;
+    --icon-scale: 100%;
+}
+
+* {
+    transition: var(--transition);
+}
+
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    font-size: calc(var(--text-scale, 100%) * 1%);
+    font-size: calc(var(--text-scale, 100%) * 1%) !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,10 +84,49 @@ body {
 }
 
 .icon {
-    width: calc(var(--icon-scale, 100%) * 0.5%);
-    height: calc(var(--icon-scale, 100%) * 0.5%);
-  }
-  
+    width: calc(var(--icon-scale, 100%) * 1.5%) !important;
+    height: calc(var(--icon-scale, 100%) * 1.5%) !important;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: var(--secondary-bg);
+}
+
+.menu-icon {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-color);
+}
+
+.menu-item span {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+
 .panel {
     background-color: var(--primary-bg);
     border-radius: var(--border-radius);

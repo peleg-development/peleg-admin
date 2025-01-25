@@ -79,20 +79,58 @@ new Vue({
             { id: 2, name: 'Chris Johnson', reason: 'Cheating', timestamp: '2025-01-02' },
             { id: 3, name: 'Mike Brown', reason: 'Using exploits', timestamp: '2025-01-03' },
           ],
+          iconTheme: 'font-awesome', 
     },
     methods: {
+        updateStyles() {
+            document.documentElement.style.setProperty('--text-scale', `${this.settings.textScale}%`);
+            document.documentElement.style.setProperty('--icon-scale', `${this.settings.iconScale}%`);
+        },
         decreaseTextScale() {
             this.settings.textScale = Math.max(this.settings.textScale - 10, 50);
-          },
-          increaseTextScale() {
+            this.updateStyles();
+        },
+        increaseTextScale() {
             this.settings.textScale = Math.min(this.settings.textScale + 10, 150);
-          },
-          decreaseIconScale() {
+            this.updateStyles();
+        },
+        decreaseIconScale() {
             this.settings.iconScale = Math.max(this.settings.iconScale - 10, 50);
-          },
-          increaseIconScale() {
+            this.updateStyles();
+        },
+        increaseIconScale() {
             this.settings.iconScale = Math.min(this.settings.iconScale + 10, 150);
-          },
+            this.updateStyles();
+        },
+        applyTheme(theme) {
+            document.documentElement.classList.remove('light-mode', 'dark-mode');
+    
+            if (theme === 'light') {
+                document.documentElement.classList.add('light-mode');
+            } else if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            } else if (theme === 'auto') {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.add('light-mode');
+                }
+            }
+        },
+        toggleTheme() {
+            this.applyTheme(this.settings.theme);
+            localStorage.setItem('theme', this.settings.theme);
+        },
+
+        applyFontStyle() {
+            document.body.style.fontFamily = this.settings.fontStyle; 
+            localStorage.setItem('fontStyle', this.settings.fontStyle); 
+        },
+        applyIconLibrary() {
+            this.$forceUpdate(); 
+            localStorage.setItem('iconTheme', this.settings.iconTheme); 
+        },
         fetchDashboardStats() {
             fetch(`https://${GetParentResourceName()}/getDashboardStats`, {
               method: 'POST',
@@ -401,7 +439,12 @@ new Vue({
         }
     },
     mounted() {
-
+        const savedFontStyle = localStorage.getItem('fontStyle') || 'sans-serif';
+        this.settings.fontStyle = savedFontStyle;
+        this.applyFontStyle();
+        const savedTheme = localStorage.getItem('iconTheme') || 'font-awesome';
+        this.settings.iconTheme = savedTheme;
+        this.applyIconLibrary();
         window.addEventListener('message', (event) => {
             let action = event.data.action;
             switch (action) {

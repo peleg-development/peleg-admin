@@ -46,21 +46,91 @@
         <div class="panel" v-if="showMenu" :style="{
             '--text-scale': settings.textScale,
             '--icon-scale': settings.iconScale,
-          }">
+          }" class="dynamic-text" style="font-size: calc(var(--text-scale, 100%) * 1%)">
             <div class="header">
-                <h1><i class="fas fa-shield-alt"></i> SecureServe</h1>
+                <h1><i class="fas fa-shield-alt"></i> Peleg Admin</h1>
             </div>
             <div class="main-content">
                 <div class="sidebar">
-                    <ul>
-                        <li @click="selectSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
-                        <li @click="selectSection('player-options')"><i class="fas fa-user"></i> Player Options</li>
-                        <li @click="selectSection('player-list')"><i class="fas fa-users"></i> Player List</li>
-                        <li @click="selectSection('server-options')"><i class="fas fa-server"></i> Server Options</li>
-                        <li @click="selectSection('logs')"><i class="fas fa-file-alt"></i> Logs</li>
-                        <li @click="selectSection('bans')"><i class="fas fa-ban"></i> Bans</li>
-                        <li @click="selectSection('settings')"><i class="fas fa-cog"></i> Settings</li>
+                    <ul class="sidebar-menu">
+                        <!-- Dashboard -->
+                        <li @click="selectSection('dashboard')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-tachometer-alt"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 13h8V3H3v10zM3 21h8v-6H3v6zM13 21h8V11h-8v10zM13 3v6h8V3h-8z"></path>
+                                </svg>
+                            </div>
+                            <span>Dashboard</span>
+                        </li>
+                    
+                        <!-- Player Options -->
+                        <li @click="selectSection('player-options')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-user"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M12 14c-4.42 0-8 1.79-8 4v2h16v-2c0-2.21-3.58-4-8-4z"></path>
+                                </svg>
+                            </div>
+                            <span>Player Options</span>
+                        </li>
+                    
+                        <!-- Player List -->
+                        <li @click="selectSection('player-list')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-users"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM6 8c0 1.66 1.34 3 3 3s3-1.34 3-3S10.66 5 9 5 6 6.34 6 8zm10 2c-2.33 0-7 1.17-7 3.5V15h14v-1.5c0-2.33-4.67-3.5-7-3.5zm-7 0c-2.33 0-7 1.17-7 3.5V15h6v-1.5c0-.64.27-1.26.7-1.76-.9-.22-1.88-.24-2.7-.24z"></path>
+                                </svg>
+                            </div>
+                            <span>Player List</span>
+                        </li>
+                    
+                        <!-- Server Options -->
+                        <li @click="selectSection('server-options')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-server"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M4 6h16V4H4v2zM20 8H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-5 9H5v-2h10v2zm4-4H5v-2h14v2z"></path>
+                                </svg>
+                            </div>
+                            <span>Server Options</span>
+                        </li>
+                    
+                        <!-- Logs -->
+                        <li @click="selectSection('logs')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-file-alt"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"></path>
+                                </svg>
+                            </div>
+                            <span>Logs</span>
+                        </li>
+                    
+                        <!-- Bans -->
+                        <li @click="selectSection('bans')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-ban"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path>
+                                </svg>
+                            </div>
+                            <span>Bans</span>
+                        </li>
+                    
+                        <!-- Settings -->
+                        <li @click="selectSection('settings')" class="menu-item">
+                            <div class="menu-icon">
+                                <i v-if="settings.iconTheme === 'font-awesome'" class="fas fa-cog"></i>
+                                <svg v-else-if="settings.iconTheme === 'custom'" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M19.14 12.94c.04-.3.06-.61.06-.94s-.02-.64-.06-.94l2.03-1.58c.18-.14.22-.39.1-.57l-1.92-3.32c-.12-.18-.37-.24-.57-.17l-2.39 1c-.5-.38-1.02-.7-1.59-.94L14.5 2.5c-.02-.2-.2-.36-.4-.36h-4c-.2 0-.38.16-.4.36L9.41 6.4c-.57.24-1.09.56-1.59.94l-2.39-1c-.2-.07-.45-.01-.57.17L2.94 9.83c-.12.18-.08.43.1.57l2.03 1.58c-.04.3-.06.61-.06.94s.02.64.06.94L3.02 15.4c-.18.14-.22.39-.1.57l1.92 3.32c.12.18.37.24.57.17l2.39-1c.5.38 1.02.7 1.59.94l.91 3.9c.02.2.2.36.4.36h4c.2 0 .38-.16.4-.36l.91-3.9c.57-.24 1.09-.56 1.59-.94l2.39 1c.2.07.45.01.57-.17l1.92-3.32c.12-.18.08-.43-.1-.57l-2.03-1.58zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>                                </svg>
+                            </div>
+                            <span>Settings</span>
+                        </li>
                     </ul>
+                    
                 </div>
                 <div class="content">
                     <transition name="fade" mode="out-in">
@@ -430,17 +500,31 @@
                               </div>
 
                               <div class="setting">
-                                <label for="darkMode">Dark Mode</label>
+                                <label for="darkMode">Theme</label>
                                 <div class="setting-options">
-                                  <input type="radio" v-model="settings.theme" value="light" id="light-mode">
-                                  <label for="light-mode">Light</label>
-                                  <input type="radio" v-model="settings.theme" value="dark" id="dark-mode">
-                                  <label for="dark-mode">Dark</label>
-                                  <input type="radio" v-model="settings.theme" value="auto" id="auto-mode">
-                                  <label for="auto-mode">Auto</label>
+                                    <input type="radio" v-model="settings.theme" value="light" id="light-mode" @change="toggleTheme">
+                                    <label for="light-mode">Light</label>
+                                    <input type="radio" v-model="settings.theme" value="dark" id="dark-mode" @change="toggleTheme">
+                                    <label for="dark-mode">Dark</label>
+                                    <input type="radio" v-model="settings.theme" value="auto" id="auto-mode" @change="toggleTheme">
+                                    <label for="auto-mode">Auto</label>
                                 </div>
-                              </div>
+                            </div>       
 
+                            <div class="setting">
+                                <label for="fontStyle">Font Style</label>
+                                <div class="setting-options">
+                                    <input type="radio" v-model="settings.fontStyle" name="fontStyle" value="sans-serif" id="font-sans-serif" @change="applyFontStyle">
+                                    <label for="font-sans-serif">Sans Serif</label>
+                            
+                                    <input type="radio" v-model="settings.fontStyle" name="fontStyle" value="serif" id="font-serif" @change="applyFontStyle">
+                                    <label for="font-serif">Serif</label>
+                            
+                                    <input type="radio" v-model="settings.fontStyle" name="fontStyle" value="monospace" id="font-monospace" @change="applyFontStyle">
+                                    <label for="font-monospace">Monospace</label>
+                                </div>
+                            </div>
+                            
                               <div class="setting">
                                 <label for="textScale">Text Scale</label>
                                 <div class="setting-options">
@@ -466,6 +550,19 @@
                                   </button>
                                 </div>
                               </div>
+
+                              <div class="setting">
+                                <label for="iconTheme">Icon Style</label>
+                                <div class="setting-options">
+                                    <input type="radio" v-model="settings.iconTheme" name="iconTheme" value="font-awesome" id="icon-font-awesome" @change="applyIconLibrary">
+                                    <label for="icon-font-awesome">Font Awesome</label>
+                            
+                                    <input type="radio" v-model="settings.iconTheme" name="iconTheme" value="custom" id="icon-custom" @change="applyIconLibrary">
+                                    <label for="icon-custom">Custom Icons</label>
+                                </div>
+                            </div>
+                            
+                            
                             </div>
                           </div>
                           
