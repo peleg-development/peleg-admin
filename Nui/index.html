@@ -260,6 +260,7 @@
                                             <div class="player-steamid">Steam ID: {{ player.steamId }}</div>
                                         </div>
                                         <div class="player-actions">
+                                            <i class="fas fa-info-circle" @click="showPlayerDetails(player)" title="Player Details"></i>
                                             <i class="fas fa-user-slash" @click="kickPlayer(player.id)" title="Kick"></i>
                                             <i class="fas fa-ban" @click="banPlayer(player.id)" title="Ban"></i>
                                             <i class="fas fa-camera" @click="screenshotPlayer(player.id)" title="Screenshot"></i>
@@ -269,7 +270,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+                     
                         <div v-if="selectedSection === 'bans'" class="section ban-section">
                             <div class="ban-header">
                                 <div class="ban-title">
@@ -615,6 +616,109 @@
                 </div>
             </div>
         </div>
+        <transition name="modal-fade">
+            <div v-if="showPlayerDetailsModal" class="playerlist-modal">
+              <div class="playerlist-header">
+                <h2 class="playerlist-header-title">{{ selectedPlayerDetails.name }}</h2>
+                <button class="playerlist-close" @click="closePlayerDetails">×</button>
+              </div>
+          
+              <div class="playerlist-stats-container">
+                
+                <!-- Health Stat -->
+                <div class="playerlist-stat-item">
+                  <div class="playerlist-stat-label">Health</div>
+                  <div class="playerlist-stat-value">{{ playerDetails.health }}%</div>
+                  <div class="playerlist-progress">
+                    <div
+                      class="playerlist-progress-health"
+                      :style="{ width: playerDetails.health + '%' }"
+                    ></div>
+                  </div>
+                </div>
+              
+                <!-- Armor Stat -->
+                <div class="playerlist-stat-item">
+                  <div class="playerlist-stat-label">Armor</div>
+                  <div class="playerlist-stat-value">{{ playerDetails.armor }}%</div>
+                  <div class="playerlist-progress">
+                    <div
+                      class="playerlist-progress-armor"
+                      :style="{ width: playerDetails.armor + '%' }"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              
+          
+              <div class="playerlist-info-grid">
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">Cash</div>
+                  <div class="playerlist-info-value">
+                    ${{ playerDetails.cash.toLocaleString() }}
+                  </div>
+                </div>
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">Bank</div>
+                  <div class="playerlist-info-value">
+                    ${{ playerDetails.bank.toLocaleString() }}
+                  </div>
+                </div>
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">Job</div>
+                  <div class="playerlist-info-value">{{ playerDetails.job }}</div>
+                </div>
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">Job Rank</div>
+                  <div class="playerlist-info-value">{{ playerDetails.jobRank }}</div>
+                </div>
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">Gang</div>
+                  <div class="playerlist-info-value">{{ playerDetails.gang }}</div>
+                </div>
+                <div class="playerlist-info-card">
+                    <div class="playerlist-info-label">Gang Rank</div>
+                    <div class="playerlist-info-value">{{ playerDetails.gangRank }}</div>
+                  </div>
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">License</div>
+                  <div class="playerlist-info-value">{{ playerDetails.license }}</div>
+                </div>
+                <div class="playerlist-info-card">
+                  <div class="playerlist-info-label">Play Time</div>
+                  <div class="playerlist-info-value">{{ playerDetails.playTime }}</div>
+                </div>
+              </div>
+          
+              <div class="playerlist-actions">
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-briefcase"></i> Change Job
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-users"></i> Change Gang
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-plus-circle"></i> Give Money
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-minus-circle"></i> Remove Money
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-gavel"></i> Jail Player
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-ghost"></i> Noclip
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-location-arrow"></i> Teleport
+                </button>
+                <button class="playerlist-action-btn">
+                  <i class="fas fa-link"></i> Cuff Player
+                </button>
+              </div>
+            </div>
+          </transition>
+          
         <transition-group name="notification" tag="div" class="notification-container">
             <div v-for="notification in notifications" 
                  :key="notification.id" 

@@ -309,3 +309,203 @@
 .screenshot-image:hover {
     transform: scale(1.01);
 }
+
+.playerlist-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    width: 95%;
+    max-width: 1000px;
+    z-index: 1000;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    animation: modalEnter 0.3s ease-out;
+  }
+  
+  @keyframes modalEnter {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+
+.playerlist-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.playerlist-header-title {
+    font-size: 2.5rem; /* Increased size */
+    color: var(--primary-color);
+    font-weight: 600;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.playerlist-stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.playerlist-stat-item {
+    background: var(--tertiary-bg);
+    padding: 2rem; /* Increased padding */
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+
+.playerlist-stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.playerlist-stat-label {
+    color: var(--text-muted);
+    font-size: 1.1rem; /* Increased size */
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.playerlist-stat-value {
+    color: var(--text-color);
+    font-size: 2rem; /* Increased size */
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.playerlist-progress {
+    background: var(--secondary-bg);
+    height: 12px; /* Increased height */
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.playerlist-progress-health {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+    height: 100%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: pulse 2s infinite;
+}
+
+.playerlist-progress-armor {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    height: 100%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+.playerlist-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.playerlist-info-card {
+    background: var(--tertiary-bg);
+    padding: 1.5rem; /* Increased padding */
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.playerlist-info-card:hover {
+    background: var(--card-hover-bg);
+    border-color: var(--primary-color);
+    transform: translateY(-5px);
+}
+
+.playerlist-info-label {
+    color: var(--text-muted);
+    font-size: 1rem; /* Increased size */
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
+.playerlist-info-value {
+    color: var(--text-color);
+    font-size: 1.4rem; /* Increased size */
+    font-weight: 500;
+}
+
+.playerlist-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.playerlist-action-btn {
+    background: var(--tertiary-bg);
+    border: 1px solid var(--border-color);
+    padding: 1.2rem; /* Increased padding */
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 1.1rem; /* Increased size */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.playerlist-action-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(2, 132, 254, 0.2);
+}
+
+.playerlist-action-btn i {
+    font-size: 1.2rem;
+}
+
+.playerlist-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+}
+
+.playerlist-close:hover {
+    color: var(--danger-color);
+    transform: rotate(90deg);
+    background: rgba(239, 68, 68, 0.1);
+}

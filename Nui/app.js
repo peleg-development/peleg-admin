@@ -21,10 +21,10 @@ new Vue({
             { id: 4, name: 'Sarah Lee', steamId: 'STEAM_0:1:98765432', ping: 120 },
             { id: 5, name: 'Mike Brown', steamId: 'STEAM_0:1:34567890', ping: 90 },
             { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 7, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 8, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 9, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
+            { id: 10, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
         ],
         bans: [
             { id: 1, name: "Jane Smith", reason: "Abusive language", steam: "STEAM_0:1:87654321", discord: "Jane#1234", hwid1: "HWID123456", ip: "192.168.1.100", expire: "Permanent" },
@@ -80,8 +80,51 @@ new Vue({
             { id: 3, name: 'Mike Brown', reason: 'Using exploits', timestamp: '2025-01-03' },
           ],
           iconTheme: 'font-awesome', 
+
+          showPlayerDetailsModal: false,
+          selectedPlayerDetails: null,
+          playerDetails: {
+              health: 100,
+              armor: 75,
+              cash: 5000,
+              bank: 50000,
+              job: 'Police',
+              jobRank: 'Officer',
+              gang: 'None',
+              gangRank: 'None',
+              citizenid: 'ABC123',
+              license: 'license:1234567',
+              playTime: '12h 34m'  
+          }
     },
     methods: {
+        showPlayerDetails(player) {
+            this.selectedPlayerDetails = player;
+            this.showPlayerDetailsModal = true;
+        },
+        closePlayerDetails() {
+            this.showPlayerDetailsModal = false;
+            this.selectedPlayerDetails = null;
+        },
+        updatePlayerJob(newJob) {
+
+        },
+        updatePlayerGang(newGang) {
+
+        },
+        givePlayerMoney(amount) {
+
+        },
+        removePlayerMoney(amount) {
+
+        },
+        jailPlayer(time) {
+
+        },
+        toggleNoclip() {
+            
+        },
+
         updateStyles() {
             document.documentElement.style.setProperty('--text-scale', `${this.settings.textScale}%`);
             document.documentElement.style.setProperty('--icon-scale', `${this.settings.iconScale}%`);
