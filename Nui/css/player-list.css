@@ -431,10 +431,17 @@
 }
 
 .info-label {
-    display: block;
-    color: #6b7280;
-    font-size: 12px;
-    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.info-label i {
+    font-size: 16px;
+    color: var(--primary-color);
 }
 
 .info-value {
@@ -459,9 +466,10 @@
     font-size: 14px;
     color: #fff;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease, background 0.3s ease;
     position: relative;
     overflow: hidden;
+    background: linear-gradient(135deg, #4b5563, #374151);
 }
 
 .action-btn::before {
@@ -471,7 +479,7 @@
     left: 50%;
     width: 200%;
     height: 200%;
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(37, 99, 235, 0.4));
     transform: translate(-50%, -50%) scale(0);
     transition: transform 0.3s ease;
     border-radius: 50%;
@@ -485,6 +493,7 @@
     filter: brightness(1.15);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #3b82f6, #2563eb); 
 }
 
 .action-btn:active {
@@ -501,20 +510,12 @@
     transform: rotate(10deg);
 }
 
-.action-btn.primary { 
-    background: linear-gradient(135deg, #3b82f6, #2563eb); 
-}
-.action-btn.success { 
-    background: linear-gradient(135deg, #10b981, #059669); 
-}
-.action-btn.danger { 
-    background: linear-gradient(135deg, #ef4444, #dc2626); 
-}
-.action-btn.warning { 
-    background: linear-gradient(135deg, #f59e0b, #d97706); 
-}
-.action-btn.default { 
-    background: linear-gradient(135deg, #4b5563, #374151); 
+.action-btn.primary,
+.action-btn.success,
+.action-btn.danger,
+.action-btn.warning,
+.action-btn.default {
+    background: linear-gradient(135deg, #4b5563, #374151);
 }
 
 
