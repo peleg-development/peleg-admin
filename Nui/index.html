@@ -618,103 +618,109 @@
         </div>
         <transition name="modal-fade">
             <div v-if="showPlayerDetailsModal" class="playerlist-modal">
-              <div class="playerlist-header">
-                <h2 class="playerlist-header-title">{{ selectedPlayerDetails.name }}</h2>
-                <button class="playerlist-close" @click="closePlayerDetails">×</button>
-              </div>
+              <div class="playerlist-container">
+                <!-- Main Info Column -->
+                <div class="playerlist-info-column">
+                  <div class="playerlist-header">
+                    <h2 class="playerlist-name">{{ selectedPlayerDetails.name }}</h2>
+                    <button class="playerlist-close" @click="closePlayerDetails">×</button>
+                  </div>
           
-              <div class="playerlist-stats-container">
-                
-                <!-- Health Stat -->
-                <div class="playerlist-stat-item">
-                  <div class="playerlist-stat-label">Health</div>
-                  <div class="playerlist-stat-value">{{ playerDetails.health }}%</div>
-                  <div class="playerlist-progress">
-                    <div
-                      class="playerlist-progress-health"
-                      :style="{ width: playerDetails.health + '%' }"
-                    ></div>
-                  </div>
-                </div>
-              
-                <!-- Armor Stat -->
-                <div class="playerlist-stat-item">
-                  <div class="playerlist-stat-label">Armor</div>
-                  <div class="playerlist-stat-value">{{ playerDetails.armor }}%</div>
-                  <div class="playerlist-progress">
-                    <div
-                      class="playerlist-progress-armor"
-                      :style="{ width: playerDetails.armor + '%' }"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-              
+                  <div class="playerlist-status-bars">
+                    <div class="status-item">
+                      <div class="status-header">
+                        <i class="fas fa-heart"></i>
+                        <span>Health</span>
+                        <span class="status-value">{{ playerDetails.health }}%</span>
+                      </div>
+                      <div class="status-bar">
+                        <div class="status-fill health" :style="{ width: playerDetails.health + '%' }"></div>
+                      </div>
+                    </div>
           
-              <div class="playerlist-info-grid">
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">Cash</div>
-                  <div class="playerlist-info-value">
-                    ${{ playerDetails.cash.toLocaleString() }}
+                    <div class="status-item">
+                      <div class="status-header">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Armor</span>
+                        <span class="status-value">{{ playerDetails.armor }}%</span>
+                      </div>
+                      <div class="status-bar">
+                        <div class="status-fill armor" :style="{ width: playerDetails.armor + '%' }"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">Bank</div>
-                  <div class="playerlist-info-value">
-                    ${{ playerDetails.bank.toLocaleString() }}
-                  </div>
-                </div>
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">Job</div>
-                  <div class="playerlist-info-value">{{ playerDetails.job }}</div>
-                </div>
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">Job Rank</div>
-                  <div class="playerlist-info-value">{{ playerDetails.jobRank }}</div>
-                </div>
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">Gang</div>
-                  <div class="playerlist-info-value">{{ playerDetails.gang }}</div>
-                </div>
-                <div class="playerlist-info-card">
-                    <div class="playerlist-info-label">Gang Rank</div>
-                    <div class="playerlist-info-value">{{ playerDetails.gangRank }}</div>
-                  </div>
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">License</div>
-                  <div class="playerlist-info-value">{{ playerDetails.license }}</div>
-                </div>
-                <div class="playerlist-info-card">
-                  <div class="playerlist-info-label">Play Time</div>
-                  <div class="playerlist-info-value">{{ playerDetails.playTime }}</div>
-                </div>
-              </div>
           
-              <div class="playerlist-actions">
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-briefcase"></i> Change Job
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-users"></i> Change Gang
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-plus-circle"></i> Give Money
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-minus-circle"></i> Remove Money
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-gavel"></i> Jail Player
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-ghost"></i> Noclip
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-location-arrow"></i> Teleport
-                </button>
-                <button class="playerlist-action-btn">
-                  <i class="fas fa-link"></i> Cuff Player
-                </button>
+                  <div class="playerlist-grid">
+                    <div class="info-card">
+                      <span class="info-label">Cash</span>
+                      <span class="info-value">${{ playerDetails.cash.toLocaleString() }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">Bank</span>
+                      <span class="info-value">${{ playerDetails.bank.toLocaleString() }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">Job</span>
+                      <span class="info-value">{{ playerDetails.job }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">Job Rank</span>
+                      <span class="info-value">{{ playerDetails.jobRank }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">Gang</span>
+                      <span class="info-value">{{ playerDetails.gang }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">Gang Rank</span>
+                      <span class="info-value">{{ playerDetails.gangRank }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">License</span>
+                      <span class="info-value">{{ playerDetails.license }}</span>
+                    </div>
+                    <div class="info-card">
+                      <span class="info-label">Play Time</span>
+                      <span class="info-value">{{ playerDetails.playTime }}</span>
+                    </div>
+                  </div>
+                </div>
+          
+                <!-- Actions Column -->
+                <div class="playerlist-actions-column">
+                  <button class="action-btn primary">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Change Job</span>
+                  </button>
+                  <button class="action-btn primary">
+                    <i class="fas fa-users"></i>
+                    <span>Change Gang</span>
+                  </button>
+                  <button class="action-btn success">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Give Money</span>
+                  </button>
+                  <button class="action-btn danger">
+                    <i class="fas fa-minus-circle"></i>
+                    <span>Remove Money</span>
+                  </button>
+                  <button class="action-btn warning">
+                    <i class="fas fa-gavel"></i>
+                    <span>Jail Player</span>
+                  </button>
+                  <button class="action-btn default">
+                    <i class="fas fa-ghost"></i>
+                    <span>Noclip</span>
+                  </button>
+                  <button class="action-btn default">
+                    <i class="fas fa-location-arrow"></i>
+                    <span>Teleport</span>
+                  </button>
+                  <button class="action-btn warning">
+                    <i class="fas fa-link"></i>
+                    <span>Cuff Player</span>
+                  </button>
+                </div>
               </div>
             </div>
           </transition>
