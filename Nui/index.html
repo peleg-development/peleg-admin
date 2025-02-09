@@ -652,39 +652,55 @@
           
                   <div class="playerlist-grid">
                     <div class="info-card">
-                      <span class="info-label">Cash</span>
-                      <span class="info-value">${{ playerDetails.cash.toLocaleString() }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-money-bill-wave"></i> Cash
+                        </span>
+                        <span class="info-value money">${{ playerDetails.cash.toLocaleString() }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">Bank</span>
-                      <span class="info-value">${{ playerDetails.bank.toLocaleString() }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-university"></i> Bank
+                        </span>
+                        <span class="info-value money">${{ playerDetails.bank.toLocaleString() }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">Job</span>
-                      <span class="info-value">{{ playerDetails.job }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-briefcase"></i> Job
+                        </span>
+                        <span class="info-value highlight">{{ playerDetails.job }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">Job Rank</span>
-                      <span class="info-value">{{ playerDetails.jobRank }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-user-tie"></i> Job Rank
+                        </span>
+                        <span class="info-value">{{ playerDetails.jobRank }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">Gang</span>
-                      <span class="info-value">{{ playerDetails.gang }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-users"></i> Gang
+                        </span>
+                        <span class="info-value highlight">{{ playerDetails.gang }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">Gang Rank</span>
-                      <span class="info-value">{{ playerDetails.gangRank }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-crown"></i> Gang Rank
+                        </span>
+                        <span class="info-value">{{ playerDetails.gangRank }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">License</span>
-                      <span class="info-value">{{ playerDetails.license }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-id-card"></i> License
+                        </span>
+                        <span class="info-value">{{ playerDetails.license }}</span>
                     </div>
                     <div class="info-card">
-                      <span class="info-label">Play Time</span>
-                      <span class="info-value">{{ playerDetails.playTime }}</span>
+                        <span class="info-label">
+                            <i class="fas fa-clock"></i> Play Time
+                        </span>
+                        <span class="info-value">{{ playerDetails.playTime }}</span>
                     </div>
-                  </div>
                 </div>
+            </div>
           
                 <!-- Actions Column -->
                 <div class="playerlist-actions-column">
@@ -721,6 +737,7 @@
                     <span>Cuff Player</span>
                   </button>
                 </div>
+                
               </div>
             </div>
           </transition>
