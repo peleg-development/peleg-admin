@@ -169,6 +169,10 @@
     background: #10b981;
 }
 
+.player-actions .fa-info-circle:hover {
+    background: #2563eb;
+}
+
 .player-list:empty::after {
     content: 'No players found';
     text-align: center;
