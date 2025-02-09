@@ -4,7 +4,8 @@
     --primary-bg: #1a1b1f;        
     --secondary-bg: #21222a;     
     --tertiary-bg: #282a33;       
-    
+    --modals-bg: #282a32;
+
     /* Accent colors */
     --primary-color: #0284fe;     
     --secondary-color: #0062d6;   
@@ -36,7 +37,8 @@
     /* Base colors */
     --primary-bg: #202833;        
     --secondary-bg: #2c3640;      
-    --tertiary-bg: #364047;       
+    --tertiary-bg: #364047;  
+    --modals-bg: #2a323c; 
    
     /* Accent colors */
     --primary-color: #5e81ac;     
