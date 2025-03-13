@@ -1,8 +1,7 @@
-
 new Vue({
     el: '#app',
     data: {
-        showMenu: true,
+        showMenu: false,
         selectedSection: 'dashboard',
         totalPlayers: 100,
         activeCheaters: 3,
@@ -16,20 +15,9 @@ new Vue({
         modalScreenshot: '',
         players: [
             { id: 1, name: 'John Doe', steamId: 'STEAM_0:1:12345678', ping: 50 },
-            { id: 2, name: 'Jane Smith', steamId: 'STEAM_0:1:87654321', ping: 75 },
-            { id: 3, name: 'Chris Johnson', steamId: 'STEAM_0:1:23456789', ping: 30 },
-            { id: 4, name: 'Sarah Lee', steamId: 'STEAM_0:1:98765432', ping: 120 },
-            { id: 5, name: 'Mike Brown', steamId: 'STEAM_0:1:34567890', ping: 90 },
-            { id: 6, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 7, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 8, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 9, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
-            { id: 10, name: 'Emma Davis', steamId: 'STEAM_0:1:54321098', ping: 60 },
         ],
         bans: [
             { id: 1, name: "Jane Smith", reason: "Abusive language", steam: "STEAM_0:1:87654321", discord: "Jane#1234", hwid1: "HWID123456", ip: "192.168.1.100", expire: "Permanent" },
-            { id: 2, name: "Chris Johnson", reason: "Cheating", steam: "STEAM_0:1:23456789", discord: "Chris#5678", hwid1: "HWID987654", ip: "192.168.1.101", expire: "2025-01-07" },
-            { id: 3, name: "Mike Brown", reason: "Using exploits", steam: "STEAM_0:1:34567890", discord: "Mike#4321", hwid1: "HWID765432", ip: "192.168.1.102", expire: "2025-01-10" },
         ],
         selectedPlayer: null,
         playerOptions: [
@@ -44,8 +32,6 @@ new Vue({
         ],
         lastUpdates: [
             { id: 1, title: "Update 1", description: "Resolved server lag issues to enhance performance.", date: "2025-01-01" },
-            { id: 2, title: "Update 2", description: "Implemented fixes to improve the admin panel's functionality.", date: "2025-01-03" },
-            { id: 3, title: "Update 3", description: "Redesigned the admin panel interface and resolved existing issues for a better user experience.", date: "2025-01-04" },
         ],
         serverOptions: [
             { name: 'Restart Server', action: 'restart' },
@@ -55,17 +41,14 @@ new Vue({
             { name: 'Backup Database', action: 'backup_database' },
         ],
         logs: [
-            // { timestamp: "2025-01-01 14:30:00", message: "Player John Doe kicked for cheating." },
-            // { timestamp: "2025-01-01 15:00:00", message: "Server restarted by Admin." },
-            // { timestamp: "2025-01-01 15:15:00", message: "Player Jane Smith banned for abusive language." },
-            // { timestamp: "2025-01-01 16:00:00", message: "Server cache cleared successfully." },
-            // { timestamp: "2025-01-01 16:30:00", message: "Screenshot taken for Player Chris Johnson." },
         ],
         settings: {
             notifications: true,
             theme: 'dark',
             textScale: 100,
-            iconScale: 100
+            iconScale: 100,
+            fontStyle: 'sans-serif',
+            iconTheme: 'font-awesome'
         },
         vehicleName: '',
         showObjectSpawner: false,
@@ -76,26 +59,81 @@ new Vue({
         notificationId: 0,
         latestBans: [
             { id: 1, name: 'Jane Smith', reason: 'Abusive language', timestamp: '2025-01-01' },
-            { id: 2, name: 'Chris Johnson', reason: 'Cheating', timestamp: '2025-01-02' },
-            { id: 3, name: 'Mike Brown', reason: 'Using exploits', timestamp: '2025-01-03' },
-          ],
-          iconTheme: 'font-awesome', 
-
-          showPlayerDetailsModal: false,
-          selectedPlayerDetails: null,
-          playerDetails: {
-              health: 100,
-              armor: 75,
-              cash: 5000,
-              bank: 50000,
-              job: 'Police',
-              jobRank: 'Officer',
-              gang: 'None',
-              gangRank: 'None',
-              citizenid: 'ABC123',
-              license: 'license:1234567',
-              playTime: '12h 34m'  
-          }
+        ],
+        showPlayerDetailsModal: false,
+        selectedPlayerDetails: null,
+        playerDetails: {
+            health: 100,
+            armor: 75,
+            cash: 5000,
+            bank: 50000,
+            job: 'Police',
+            jobRank: 'Officer',
+            gang: 'None',
+            gangRank: 'None',
+            citizenid: 'ABC123',
+            license: 'license:1234567',
+            playTime: '12h 34m'  
+        },
+        permissionGroups: [
+            {
+                id: 1,
+                name: "Super Admin",
+                permissions: ["all", "ban", "kick", "teleport", "spawn", "money"]
+            },
+            {
+                id: 2,
+                name: "Admin",
+                permissions: ["ban", "kick", "teleport", "spawn"]
+            },
+            {
+                id: 3,
+                name: "Moderator",
+                permissions: ["kick", "teleport"]
+            }
+        ],
+        adminList: [
+            {
+                id: 1,
+                name: "John Admin",
+                avatar: "https://i.imgur.com/example1.jpg",
+                group: "Super Admin",
+                permissions: ["all"]
+            },
+            {
+                id: 2,
+                name: "Jane Mod",
+                avatar: "https://i.imgur.com/example2.jpg",
+                group: "Moderator",
+                permissions: ["kick", "teleport", "spawn"]
+            }
+        ],
+        showGroupModal: false,
+        showAdminModal: false,
+        editingGroup: null,
+        selectedAdmin: null,
+        groupForm: {
+            name: '',
+            permissions: []
+        },
+        adminForm: {
+            group: '',
+            permissions: []
+        },
+        availablePermissions: [
+            { id: 1, name: 'ban', description: 'Can ban players' },
+            { id: 2, name: 'kick', description: 'Can kick players' },
+            { id: 3, name: 'teleport', description: 'Can teleport players' },
+            { id: 4, name: 'spawn', description: 'Can spawn vehicles/items' },
+            { id: 5, name: 'money', description: 'Can manage player money' },
+            { id: 6, name: 'god', description: 'Has god mode access' },
+            { id: 7, name: 'noclip', description: 'Can use noclip' },
+            { id: 8, name: 'spectate', description: 'Can spectate players' }
+        ],
+        activeTab: 'groups',
+        groupSearch: '',
+        adminSearch: '',
+        selectedGroupFilter: '',
     },
     methods: {
         showPlayerDetails(player) {
@@ -106,23 +144,115 @@ new Vue({
             this.showPlayerDetailsModal = false;
             this.selectedPlayerDetails = null;
         },
-        updatePlayerJob(newJob) {
 
+        updatePlayerJob(newJob) {
+            if (this.selectedPlayerDetails) {
+                fetch(`https://${GetParentResourceName()}/updatePlayerJob`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ playerId: this.selectedPlayerDetails.id, newJob: newJob })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.showNotification(`Job updated to ${newJob}`, 'success');
+                }).catch(error => {
+                    this.showNotification(`Failed to update job`, 'error');
+                });
+            }
         },
         updatePlayerGang(newGang) {
-
+            if (this.selectedPlayerDetails) {
+                fetch(`https://${GetParentResourceName()}/updatePlayerGang`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ playerId: this.selectedPlayerDetails.id, newGang: newGang })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.showNotification(`Gang updated to ${newGang}`, 'success');
+                }).catch(error => {
+                    this.showNotification(`Failed to update gang`, 'error');
+                });
+            }
         },
         givePlayerMoney(amount) {
-
+            if (this.selectedPlayerDetails) {
+                fetch(`https://${GetParentResourceName()}/givePlayerMoney`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ playerId: this.selectedPlayerDetails.id, amount: amount })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.showNotification(`Gave $${amount} to player`, 'success');
+                }).catch(error => {
+                    this.showNotification(`Failed to give money`, 'error');
+                });
+            }
         },
         removePlayerMoney(amount) {
-
+            if (this.selectedPlayerDetails) {
+                fetch(`https://${GetParentResourceName()}/removePlayerMoney`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ playerId: this.selectedPlayerDetails.id, amount: amount })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.showNotification(`Removed $${amount} from player`, 'success');
+                }).catch(error => {
+                    this.showNotification(`Failed to remove money`, 'error');
+                });
+            }
         },
         jailPlayer(time) {
-
+            if (this.selectedPlayerDetails) {
+                fetch(`https://${GetParentResourceName()}/jailPlayer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ playerId: this.selectedPlayerDetails.id, time: time })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.showNotification(`Player jailed for ${time} minutes`, 'success');
+                }).catch(error => {
+                    this.showNotification(`Failed to jail player`, 'error');
+                });
+            }
         },
-        toggleNoclip() {
-            
+        cuffPlayer() {
+            if (this.selectedPlayerDetails) {
+                fetch(`https://${GetParentResourceName()}/cuffPlayer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ playerId: this.selectedPlayerDetails.id })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        this.showNotification(`Player cuffed successfully`, 'success');
+                    } else {
+                        this.showNotification(`Failed to cuff player`, 'error');
+                    }
+                }).catch(error => {
+                    console.error('Error cuffing player:', error);
+                    this.showNotification(`Error cuffing player`, 'error');
+                });
+            }
+        },
+
+        showNotification(message, type = 'info') {
+            const id = Date.now();
+            this.notifications.push({ id, message, type });
+            setTimeout(() => {
+                this.removeNotification(id);
+            }, 4000);
+        },
+        removeNotification(id) {
+            const index = this.notifications.findIndex(n => n.id === id);
+            if (index > -1) {
+                this.notifications.splice(index, 1);
+            }
         },
 
         updateStyles() {
@@ -147,7 +277,7 @@ new Vue({
         },
         applyTheme(theme) {
             document.documentElement.classList.remove('light-mode', 'dark-mode');
-    
+
             if (theme === 'light') {
                 document.documentElement.classList.add('light-mode');
             } else if (theme === 'dark') {
@@ -176,20 +306,20 @@ new Vue({
         },
         fetchDashboardStats() {
             fetch(`https://${GetParentResourceName()}/getDashboardStats`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({})  
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({})  
             })
-              .then(response => response.json())
-              .then(data => {
+            .then(response => response.json())
+            .then(data => {
                 this.totalPlayers   = data.totalPlayers;
                 this.activeCheaters = data.activeCheaters;
                 this.serverUptime   = data.serverUptime;
                 this.peakPlayers    = data.peakPlayers;
-              })
-              .catch(error => {
+            })
+            .catch(error => {
                 console.error('Error fetching dashboard stats:', error);
-              });
+            });
 
         },
         fetchPlayers() {
@@ -385,7 +515,7 @@ new Vue({
                 this.removeNotification(id);
             }, 4000);
         },
-    
+
         removeNotification(id) {
             const index = this.notifications.findIndex(n => n.id === id);
             if (index > -1) {
@@ -466,34 +596,137 @@ new Vue({
                 }
             }
         },
+        createNewGroup() {
+            this.editingGroup = null;
+            this.groupForm = {
+                name: '',
+                permissions: []
+            };
+            this.showGroupModal = true;
+        },
+        editGroup(group) {
+            this.editingGroup = group;
+            this.groupForm = {
+                name: group.name,
+                permissions: [...group.permissions]
+            };
+            this.showGroupModal = true;
+        },
+        closeGroupModal() {
+            this.showGroupModal = false;
+            this.editingGroup = null;
+            this.groupForm = { name: '', permissions: [] };
+        },
+        saveGroup() {
+            if (this.editingGroup) {
+                const index = this.permissionGroups.findIndex(g => g.id === this.editingGroup.id);
+                if (index !== -1) {
+                    this.permissionGroups[index] = {
+                        ...this.editingGroup,
+                        name: this.groupForm.name,
+                        permissions: this.groupForm.permissions
+                    };
+                }
+            } else {
+                this.permissionGroups.push({
+                    id: Date.now(),
+                    name: this.groupForm.name,
+                    permissions: this.groupForm.permissions
+                });
+            }
+            this.closeGroupModal();
+        },
+        editAdminPerms(admin) {
+            this.selectedAdmin = admin;
+            this.adminForm = {
+                group: admin.group,
+                permissions: [...admin.permissions]
+            };
+            this.showAdminModal = true;
+        },
+        closeAdminModal() {
+            this.showAdminModal = false;
+            this.selectedAdmin = null;
+            this.adminForm = { group: '', permissions: [] };
+        },
+        saveAdminPerms() {
+            if (this.selectedAdmin) {
+                const index = this.adminList.findIndex(a => a.id === this.selectedAdmin.id);
+                if (index !== -1) {
+                    this.adminList[index] = {
+                        ...this.selectedAdmin,
+                        group: this.adminForm.group,
+                        permissions: this.adminForm.permissions
+                    };
+                }
+            }
+            this.closeAdminModal();
+        },
+        addNewAdmin() {
+            this.showAdminModal = true;
+            this.selectedAdmin = null;
+            this.adminForm = {
+                name: '',
+                group: '',
+                permissions: []
+            };
+        },
         
-    
+        resetAdminPerms(admin) {
+            if (confirm(`Reset permissions for ${admin.name}?`)) {
+                const group = this.permissionGroups.find(g => g.name === admin.group);
+                if (group) {
+                    admin.permissions = [...group.permissions];
+                    this.showNotification('Permissions reset to group defaults', 'success');
+                }
+            }
+        },
+        
+        removeAdmin(admin) {
+            if (confirm(`Remove admin status from ${admin.name}?`)) {
+                const index = this.adminList.findIndex(a => a.id === admin.id);
+                if (index !== -1) {
+                    this.adminList.splice(index, 1);
+                    this.showNotification('Admin removed successfully', 'success');
+                }
+            }
+        }
     },
     computed: {
         filteredPlayers() {
-            return this.players.filter(player => {
-                return player.name.toLowerCase().includes(this.searchQuery.toLowerCase());
-            });
+            return this.players.filter(player => player.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
         },
         filteredBans() {
-            return this.bans.filter(ban => {
-                return ban.name.toLowerCase().includes(this.banSearchQuery.toLowerCase());
+            return this.bans.filter(ban => ban.name.toLowerCase().includes(this.banSearchQuery.toLowerCase()));
+        },
+        filteredGroups() {
+            if (!this.groupSearch) return this.permissionGroups;
+            return this.permissionGroups.filter(group => 
+                group.name.toLowerCase().includes(this.groupSearch.toLowerCase())
+            );
+        },
+        filteredAdmins() {
+            return this.adminList.filter(admin => {
+                const matchesSearch = !this.adminSearch || 
+                    admin.name.toLowerCase().includes(this.adminSearch.toLowerCase());
+                const matchesGroup = !this.selectedGroupFilter || 
+                    admin.group === this.selectedGroupFilter;
+                return matchesSearch && matchesGroup;
             });
         }
     },
     mounted() {
         const savedFontStyle = localStorage.getItem('fontStyle') || 'sans-serif';
         this.settings.fontStyle = savedFontStyle;
-        this.applyFontStyle();
+        document.body.style.fontFamily = savedFontStyle;
         const savedTheme = localStorage.getItem('iconTheme') || 'font-awesome';
         this.settings.iconTheme = savedTheme;
-        this.applyIconLibrary();
         window.addEventListener('message', (event) => {
             let action = event.data.action;
             switch (action) {
                 case "open":
-                    this.fetchBans(); 
-                    this.fetchPlayers(); 
+                    this.fetchBans();
+                    this.fetchPlayers();
                     this.fetchDashboardStats();
                     this.showMenu = true;
                     break;
@@ -501,14 +734,18 @@ new Vue({
                     this.showMenu = false;
                     break;
                 case "dashboardStats":
-                    this.updateStats(event.data);
+                    this.totalPlayers   = event.data.totalPlayers;
+                    this.activeCheaters = event.data.activeCheaters;
+                    this.serverUptime   = event.data.serverUptime;
+                    this.peakPlayers    = event.data.peakPlayers;
                     break;
                 case "players":
-                    console.log(event.data.players)
-                    this.players = event.data.players
+                    this.players = event.data.players;
                     break;
                 case "displayScreenshot":
-                    this.showScreenshot(event.data);
+                    this.modalScreenshot = event.data.imageUrl;
+                    this.showScreenshotModal = true;
+                    break;
             }
         });
         window.addEventListener('keydown', this.handleKeydown);
